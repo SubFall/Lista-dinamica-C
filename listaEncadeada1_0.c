@@ -18,7 +18,7 @@ LISTA lista;
 
 void inseriInicio(int elemento);
 void inseriFim(int elemento);
-void inserirElemento(int elemento, int valor);
+void inserirElemento(int elemento);
 void imprimir();
 void erroMemoria();
 void menu();
@@ -88,13 +88,10 @@ int main(){
             removerElemento(dados);
             break;
         case 6:
-            printf("\t\nQual a posicão que deseja colocar ? ");
-            scanf("%d", &valor);
-            limparBuffer();
             printf("\t\nQual o valor ? ");
             scanf("%d", &dados);
             limparBuffer();
-            inserirElemento(dados, valor);
+            inserirElemento(dados);
             break;
         case 7:
             imprimir();
@@ -151,25 +148,38 @@ void inseriFim(int elemento){
     lista.fim = ptr;
 }
 
-void inserirElemento(int elemento, int valor){//seleciona o valor do elemento e o novo nó em inserido na frente
+void inserirElemento(int elemento){
     NO* current = lista.ini;
+    int posicao;
 
     if(current == NULL){
         inseriInicio(elemento);
     }else{
-        while (current->dados != valor){
+        int cont = 0;
+        printf("\t{ ");
+        while(current != NULL){
             current = current->prox;
+            cont +=1;
+            printf(" %d ", cont);
         }
-        if(current->prox == NULL){
-            inseriFim(elemento);
-        }else{
+        printf(" }\n");
+        printf("\tQual a posicão: ");
+        scanf("%d", &posicao);
+        limparBuffer();
+        if(posicao == 0){
+            inseriInicio(elemento);
+            return;
+        }
+        current = lista.ini;
         NO* ptr = (NO*)malloc(sizeof(NO));
         ptr->dados = elemento;
         ptr->prox = NULL;
+        int i;
+        for(i = 1; i < posicao - 1; i++){
+            current = current->prox;
+        }
         ptr->prox = current->prox;
         current->prox = ptr;
-        }
-        //tem que terminar
     }
 }
 
