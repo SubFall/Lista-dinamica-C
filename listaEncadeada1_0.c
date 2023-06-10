@@ -151,7 +151,7 @@ void inseriFim(int elemento){
     lista.fim = ptr;
 }
 
-void inserirElemento(int elemento, int valor){
+void inserirElemento(int elemento, int valor){//seleciona o valor do elemento e o novo nó em inserido na frente
     NO* current = lista.ini;
 
     if(current == NULL){
